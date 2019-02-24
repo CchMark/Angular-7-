@@ -76,18 +76,14 @@ export class AppComponent implements OnInit {
   data = [];
 
   ngOnInit(): void {
-    fetch('/api/articles.json').then((res) => {
-    //示範用 fetch() API 取得遠端內容
-    //res.json().then((value) => {
-    //this.data = value;
-    //});
-
-    //示範變更 fetch() Promise 的用法
-      return res.json();
-    }).then((value) => {
-      this.data = value;
-    });
+    //示範更簡潔的 Arrow Function 寫法 (ES2015)
+    fetch('/api/articles.json')
+      .then(res => res.json())
+      .then(value => {
+        this.data = value;
+      });
   }
+
 
   setKeyword($event: KeyboardEvent) {
     const inputDom = $event.target as HTMLInputElement;
