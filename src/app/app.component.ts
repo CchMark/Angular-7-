@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { from } from 'rxjs';
-import { Article } from './article/article';
+import { Article } from './article';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'demo1';
   keyword = '';
-  data: Article[] = [];
+
+  constructor(public datasvc: DataService) {
+
+  }
 
   ngOnInit(): void {
     from(fetch('/api/articles.json').then(res => res.json()))
       .subscribe(value => {
-        this.data = value;
+        this.datasvc.data = value;
       });
   }
-
-
   setKeyword($event: KeyboardEvent) {
     const inputDom = $event.target as HTMLInputElement;
     this.keyword = inputDom.value;
@@ -30,11 +32,7 @@ export class AppComponent implements OnInit {
   }
 
   doSearch(val: string) {
-
     console.log(val);
   }
-  deleteArticle(postId: number) {
-    console.log(`你刪除編號 ${postId} 的文章!`);
-    this.data = this.data.filter(a => a.id !== postId);
-  }
+
 }
