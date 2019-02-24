@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -76,10 +77,8 @@ export class AppComponent implements OnInit {
   data = [];
 
   ngOnInit(): void {
-    //示範更簡潔的 Arrow Function 寫法 (ES2015)
-    fetch('/api/articles.json')
-      .then(res => res.json())
-      .then(value => {
+    from(fetch('/api/articles.json').then(res => res.json()))
+      .subscribe(value => {
         this.data = value;
       });
   }
