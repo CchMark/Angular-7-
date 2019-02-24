@@ -97,4 +97,7 @@ export class AppComponent implements OnInit {
 
     console.log(val);
   }
+  deleteArticle(postId: number) {
+    console.log(`你刪除編號 ${postId} 的文章!`);
+  }
 }
